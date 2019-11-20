@@ -124,28 +124,24 @@ def process_baskets():
         )
         apple_basket_inside_restrictions = BasketRestrictions(
             **{
-                    **apple_basket_outside_restrictions.dict(),
-                    **{
-                        'allowed_types': [Apple]
-                    },
+                **apple_basket_outside_restrictions.dict(),
+                'allowed_types': [Apple]
             }
         )
         orange_basket_outside_restrictions = BasketRestrictions(
             limit=2,
             allowed_colors=[Colors.ORANGE, Colors.YELLOW],
-            allowed_types=[Orange, Basket]
+            allowed_types=[Basket, Orange]
         )
         orange_basket_inside_restrictions = BasketRestrictions(
             **{
-                    **apple_basket_outside_restrictions.dict(),
-                    **{
-                        'limit': 3,
-                        'allowed_types': [Orange],
-                    },
+                **apple_basket_outside_restrictions.dict(),
+                'limit': 3,
+                'allowed_types': [Orange],
             }
         )
         root_restrictions = BasketRestrictions(
-            allowed_types=[Fruit],
+            allowed_types=[Basket, Fruit],
         )
 
         root = Basket(
