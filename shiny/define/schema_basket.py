@@ -1,7 +1,7 @@
+from __future__ import annotations
 from typing import (
     List,
     Union,
-    ForwardRef,
     Type,
 )
 
@@ -20,17 +20,19 @@ from .schema_fruit import (
 )
 
 
-Basket = ForwardRef('Basket')
-BasketItem = Union[Fruit, Basket]
+BasketItem = Union[Fruit, "Basket"]
 BasketList = List[BasketItem]
-BasketListType = List[Union[Type[Apple], Type[Orange], Type[Basket]]]
+BasketListType = List[Union[Type[Fruit], Type[Basket]]]
 
 
 class BasketRestrictions(BaseModel):
     limit: int = 3
     max_weight: float = 10.0
     allowed_colors: List[Colors] = all_enum_values(Colors)
-    allowed_types: BasketListType = [Fruit, Basket]
+    allowed_types: BasketListType = [Type[Fruit], Type[Basket]]
+
+
+BasketRestrictions.update_forward_refs()
 
 
 class Basket(BaseModel):
@@ -48,5 +50,4 @@ class Basket(BaseModel):
         return ["Basket Type"]
 
 
-BasketRestrictions.update_forward_refs()
 Basket.update_forward_refs()

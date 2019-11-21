@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from __future__ import annotations
 
-from devtools import debug
+from devtools import debug  # type: ignore
 from pydantic import ValidationError
 
 from shiny.try_basket import BasketStructure

@@ -1,3 +1,11 @@
+from __future__ import annotations
+import string
+from typing import (
+    Union,
+    Dict,
+    AnyStr,
+)
+
 from .define import (
     Basket,
     BasketRestrictions,
@@ -7,16 +15,17 @@ from .define import (
 )
 from .define.type import (
     Colors,
+    BasketRestrictionsSet,
 )
 
 
-class BasketStructure():
+class BasketStructure:
     def __init__(self):
         self.restrictions = self.define_restrictions()
         self.root = None
 
     @staticmethod
-    def define_restrictions():
+    def define_restrictions() -> BasketRestrictionsSet:
         apple_basket_outside_restrictions = BasketRestrictions(
             limit=7,
             max_weight=20.0,
@@ -42,7 +51,7 @@ class BasketStructure():
             },
             'orange': {
                'inside': BasketRestrictions(**{
-                        **apple_basket_outside_restrictions.dict(),
+                        **orange_basket_outside_restrictions.dict(),
                         'limit': 3,
                         'allowed_types': [Orange],
                 }),
@@ -50,7 +59,7 @@ class BasketStructure():
             },
         }
 
-    def create(self):
+    def create(self: BasketStructure) -> Basket:
         """Test basket structure with the following rules
             1. Root bucket can contain only buckets
             2. 2nd level buckets can contain either fruits or buckets
@@ -89,7 +98,7 @@ class BasketStructure():
                             restrictions=self.restrictions['orange']['inside'],
                         ),
                     ],
-                    restrictions=self.restrictions['orange']['inside'],
+                    restrictions=self.restrictions['orange']['outside'],
                 ),
             ],
             restrictions=self.restrictions['root'],

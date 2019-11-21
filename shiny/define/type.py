@@ -1,4 +1,5 @@
 from enum import IntEnum
+from typing import Dict
 
 
 def all_enum_values(int_enum_type):
@@ -15,3 +16,6 @@ class AppleVariety(IntEnum):
 
 class OrangeVariety(IntEnum):
     SMALL, BIG, PLANET_SIZE = range(3)
+
+
+BasketRestrictionsSet = Dict[str, object]
